@@ -65,11 +65,14 @@ class TestSriovConfig(base.TestCase):
         if os.path.isfile(sriov_config._UDEV_LEGACY_RULE_FILE):
             os.remove(sriov_config._UDEV_LEGACY_RULE_FILE)
 
-    def _write_numvfs(self, ifname, numvfs=0):
+    def _write_numvfs(self, ifname, numvfs=0, autoprobe=True):
         os.makedirs(common.get_dev_path(ifname, '_device'))
         numvfs_file = common.get_dev_path(ifname, 'sriov_numvfs')
         with open(numvfs_file, 'w') as f:
             f.write(str(numvfs))
+        autoprobe_file = common.get_dev_path(ifname, 'sriov_drivers_autoprobe')
+        with open(autoprobe_file, 'w') as f:
+            f.write(str(int(autoprobe)))
 
     def _save_action(self, action):
         try:
@@ -345,8 +348,10 @@ class TestSriovConfig(base.TestCase):
         ]
 
         pf_config = [{"device_type": "pf", "name": "p2p1", "numvfs": 10,
+                      "drivers_autoprobe": True,
                       "promisc": "on", "link_mode": "legacy"},
                      {"device_type": "pf", "name": "p2p2", "numvfs": 12,
+                      "drivers_autoprobe": True,
                       "promisc": "off", "link_mode": "legacy"}]
 
         for ifname in ['p2p1', 'p2p2']:
@@ -389,8 +394,10 @@ class TestSriovConfig(base.TestCase):
         ]
 
         pf_config = [{"device_type": "pf", "name": "p2p1", "numvfs": 10,
+                      "drivers_autoprobe": True,
                       "promisc": "on", "link_mode": "legacy"},
                      {"device_type": "pf", "name": "p2p2", "numvfs": 12,
+                      "drivers_autoprobe": True,
                       "promisc": "off", "link_mode": "legacy"},
                      {"device": {"name": "p2p1", "vfid": 0},
                       "device_type": "vf", "name": "p2p1v0", "max_tx_rate": 0,
@@ -438,8 +445,10 @@ class TestSriovConfig(base.TestCase):
         ]
 
         pf_config = [{"device_type": "pf", "name": "p2p1", "numvfs": 10,
+                      "drivers_autoprobe": True,
                       "promisc": "on", "link_mode": "legacy"},
                      {"device_type": "pf", "name": "p2p2", "numvfs": 12,
+                      "drivers_autoprobe": True,
                       "promisc": "off", "link_mode": "legacy"},
                      {"device": {"name": "eno3", "vfid": 1},
                       "device_type": "vf", "name": "eno3v0", "max_tx_rate": 0,
@@ -493,8 +502,10 @@ class TestSriovConfig(base.TestCase):
         ]
 
         pf_config = [{"device_type": "pf", "name": "p2p1", "numvfs": 10,
+                      "drivers_autoprobe": True,
                       "vdpa": True, "link_mode": "switchdev"},
                      {"device_type": "pf", "name": "p2p2", "numvfs": 12,
+                      "drivers_autoprobe": True,
                       "vdpa": True, "link_mode": "switchdev"}]
 
         for ifname in ['p2p1', 'p2p2']:
