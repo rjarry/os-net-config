@@ -16,6 +16,7 @@
 
 
 import argparse
+import importlib.metadata
 import json
 import os
 import sys
@@ -89,7 +90,7 @@ def parse_opts(argv):
         required=False)
 
     parser.add_argument('--version', action='version',
-                        version=version.version_info.version_string())
+                        version=importlib.metadata.version('os-net-config'))
     parser.add_argument(
         '--noop',
         dest="noop",

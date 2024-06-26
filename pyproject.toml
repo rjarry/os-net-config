@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=40.6.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "os-net-config"
+version = "17.1.0"
+description = "OpenStack network configuration"
+requires-python = ">= 3.8"
+license = {text = "Apache-2.0"}
+readme = "README.rst"
+authors = [
+    {name = "OpenStack", email = "openstack-discuss@lists.openstack.org"},
+]
+classifiers = [
+    "Environment :: OpenStack",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+dependencies = [
+    "netaddr>=0.7.13",
+    "oslo.concurrency>=3.26.0",
+    "oslo.utils>=3.33.0",
+    "PyYAML>=3.10.0",
+    "jsonschema>=3.2.0",
+    "pyudev>=0.16.1",
+    "pyroute2>=0.7.10",
+]
+
+[project.urls]
+Repository = "https://github.com/os-net-config/os-net-config"
+
+[project.scripts]
+os-net-config = "os_net_config.cli:main"
+os-net-config-sriov = "os_net_config.sriov_config:main"
+os-net-config-dcb = "os_net_config.dcb_config:main"
+os-net-config-sriov-bind = "os_net_config.sriov_bind_config:main"
+
+[tool.setuptools]
+packages = [
+    "os_net_config",
+]
